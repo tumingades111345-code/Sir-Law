@@ -22,8 +22,9 @@
   .cover{position:relative;height:300px;background:#cfe6f5}
   .cover img{width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block}
   .cover::after{content:"";position:absolute;inset:auto 0 0 0;height:90px;background:linear-gradient(transparent,rgba(11,107,79,.35))}
-  .head{display:flex;gap:16px;align-items:flex-end;padding:0 22px;margin-top:-58px;position:relative;z-index:2}
+  .head{display:flex;gap:16px;align-items:flex-start;padding:0 22px;margin-top:-58px;position:relative;z-index:2}
   .avatar{width:116px;height:116px;border-radius:50%;border:5px solid var(--cream);background:#fff;object-fit:cover;flex:none;box-shadow:0 3px 10px rgba(0,0,0,.22)}
+  .head>div{margin-top:72px}
   .head h1{margin:0 0 2px;font-size:1.55rem;letter-spacing:.2px;color:#0e1a12}
   .head p{margin:0 0 8px;color:var(--green-soft);font-size:.95rem}
 
@@ -93,6 +94,7 @@
     .avatar{width:92px;height:92px}
     .head{margin-top:-46px;padding:0 14px}
     .head h1{font-size:1.2rem}
+    .head>div{margin-top:56px}
     .welcome,section.block,nav{padding-left:14px;padding-right:14px}
     .welcome h2{font-size:1.6rem}
   }
@@ -172,7 +174,7 @@
 
   <footer>
     <div>Tuburan Elementary School · Odiongan, Romblon · School ID 111344</div>
-    <div>Developed by <b>Sir Lawrence F. Fajilan</b></div>
+    <div>Web developed by <b>Sir Lawrence F. Fajilan</b></div>
   </footer>
 </div>
 
@@ -181,7 +183,7 @@
 <script>
 /* ===================== CONFIG ===================== */
 // Paste your Google Apps Script Web App URL here (see SETUP-GUIDE.md, Step 4)
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxpw6CBNo04C1pMF8svlni4RC_lCgQHm8u5EuNQ9PfDLpULQxNHNNv2wSeYNz1o0a7ZsQ/exec";
+const SCRIPT_URL = "PASTE_YOUR_WEB_APP_URL_HERE";
 const MAX_MB = 10;
 
 // IDs must match the IDs in Code.gs
@@ -196,7 +198,7 @@ const TEACHERS = [
   {id:"g5-datiles",role:"Grade 5 – Datiles",  name:"Maribel M. Fabellar"},
   {id:"g5-grapes",role:"Grade 5 – Grapes",    name:"Mabel M. Famini"},
   {id:"g6-oranges",role:"Grade 6 – Oranges",  name:"Ernie T. Cortez"},
-  {id:"g6-blackberry",role:"Grade 6 – Blackberry", name:"Erneluz B. Fiedacan"},
+  {id:"g6-blackberry",role:"Grade 6 – Blackberry", name:"Erneluz F. Fiedacan"},
   {id:"ao",       role:"Administrative Officer", name:"Krezelle G. Fababeir"}
 ];
 
