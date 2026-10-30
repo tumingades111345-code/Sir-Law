@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tuburan Elementary School</title>
+<link rel="icon" href="logo.jpg">
+<style>
+  :root{
+    --bar:#0b6b4f; --cream:#fff6d8; --cream-2:#fffbea; --ink:#16231b;
+    --green:#1b5e20; --green-soft:#4b8a3c; --chip:#d7f0cf; --chip-ink:#138a3a;
+    --line:#e8dca6; --warn:#b3261e; --ok:#137333;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#f4f1dc;color:var(--ink);font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;line-height:1.55}
+  .topbar{background:var(--bar);height:14px;border-radius:0 0 14px 14px}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+
+  /* ---------- Cover + profile ---------- */
+  .page{background:var(--cream);border-radius:0 0 22px 22px;overflow:hidden;margin-top:-1px;box-shadow:0 2px 0 var(--line)}
+  .cover{position:relative;height:300px;background:#cfe6f5}
+  .cover img{width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block}
+  .cover::after{content:"";position:absolute;inset:auto 0 0 0;height:90px;background:linear-gradient(transparent,rgba(11,107,79,.35))}
+  .head{display:flex;gap:16px;align-items:flex-end;padding:0 22px;margin-top:-58px;position:relative;z-index:2}
+  .avatar{width:116px;height:116px;border-radius:50%;border:5px solid var(--cream);background:#fff;object-fit:cover;flex:none;box-shadow:0 3px 10px rgba(0,0,0,.22)}
+  .head h1{margin:0 0 2px;font-size:1.55rem;letter-spacing:.2px;color:#0e1a12}
+  .head p{margin:0 0 8px;color:var(--green-soft);font-size:.95rem}
+
+  nav{display:flex;gap:8px;flex-wrap:wrap;padding:14px 22px 0}
+  nav a{color:var(--green);text-decoration:none;font-weight:600;font-size:.92rem;padding:7px 14px;border-radius:999px;border:1.5px solid var(--line);background:var(--cream-2)}
+  nav a:hover,nav a:focus-visible{background:var(--chip);border-color:var(--chip-ink);outline:none}
+
+  /* ---------- Welcome ---------- */
+  .welcome{padding:22px 22px 28px}
+  .greet{font-size:.95rem;color:var(--green-soft);font-weight:600;margin:0 0 4px}
+  .welcome h2{margin:0 0 8px;font-size:2rem;color:var(--green);line-height:1.15}
+  .typed{min-height:3.2em;font-size:1.08rem;color:#3a3a3a;margin:0 0 14px;max-width:62ch}
+  .typed::after{content:"";display:inline-block;width:2px;height:1.1em;background:var(--green);margin-left:3px;vertical-align:-.15em;animation:blink 1s steps(2) infinite}
+  @keyframes blink{50%{opacity:0}}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .chip{font:inherit;font-weight:700;font-size:.9rem;color:var(--chip-ink);background:var(--chip);border:2px solid transparent;border-radius:999px;padding:6px 14px;cursor:pointer;transition:transform .15s,border-color .15s}
+  .chip:hover{transform:translateY(-2px)}
+  .chip[aria-pressed="true"]{border-color:var(--chip-ink);background:#fff}
+  .chip:focus-visible,.btn:focus-visible,.card:focus-visible{outline:3px solid #f2b705;outline-offset:2px}
+  .meaning{margin:12px 0 0;padding:12px 16px;background:#fff;border-left:5px solid var(--chip-ink);border-radius:8px;max-width:62ch;min-height:3.4em}
+  .actions{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .btn{font:inherit;font-weight:700;border:0;border-radius:10px;padding:11px 20px;cursor:pointer;background:var(--bar);color:#fff;text-decoration:none;display:inline-block}
+  .btn:hover{background:#085940}
+  .btn.alt{background:#fff;color:var(--green);border:2px solid var(--green)}
+  .btn:disabled{opacity:.55;cursor:not-allowed}
+  .stamp{font-size:.85rem;color:var(--green-soft)}
+
+  /* ---------- Folders ---------- */
+  section.block{padding:26px 22px 8px}
+  .block h2{margin:0;font-size:1.45rem;color:var(--green)}
+  .sub{margin:2px 0 16px;color:#555}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+  .card{display:flex;gap:12px;align-items:center;text-align:left;font:inherit;background:#fff;border:2px solid var(--line);border-radius:14px;padding:12px 14px;cursor:pointer;color:inherit;transition:border-color .15s,box-shadow .15s}
+  .card:hover{border-color:var(--chip-ink)}
+  .card[aria-pressed="true"]{border-color:var(--bar);box-shadow:0 0 0 3px rgba(11,107,79,.18);background:#f2fbf0}
+  .card svg{flex:none;width:34px;height:34px}
+  .card b{display:block;font-size:.98rem;line-height:1.25}
+  .card small{color:var(--green-soft);font-weight:600}
+
+  /* ---------- Upload form ---------- */
+  .form{margin:22px 0 28px;background:#fff;border:2px solid var(--line);border-radius:16px;padding:20px}
+  .picked{display:flex;gap:10px;align-items:center;padding:10px 14px;border-radius:10px;background:var(--chip);color:#0f5a24;font-weight:700;margin-bottom:14px}
+  .picked.none{background:#fdecea;color:var(--warn)}
+  label{display:block;font-weight:700;font-size:.92rem;margin:14px 0 5px}
+  input[type=text],textarea{width:100%;font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--cream-2)}
+  input[type=text]:focus,textarea:focus{outline:none;border-color:var(--bar)}
+  .drop{border:2.5px dashed var(--green-soft);border-radius:14px;padding:26px 16px;text-align:center;background:var(--cream-2);cursor:pointer;transition:background .15s}
+  .drop.over{background:var(--chip)}
+  .drop strong{color:var(--green)}
+  .drop small{display:block;color:#666;margin-top:4px}
+  .files{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:8px}
+  .files li{display:flex;justify-content:space-between;gap:10px;align-items:center;background:var(--cream-2);border:1.5px solid var(--line);border-radius:10px;padding:8px 12px;font-size:.92rem}
+  .files .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+  .files .st{flex:none;font-weight:700}
+  .st.ok{color:var(--ok)} .st.err{color:var(--warn)} .st.wait{color:#8a6d00}
+  .files button{border:0;background:none;color:var(--warn);font-weight:700;cursor:pointer;font:inherit}
+  .msg{margin-top:14px;font-weight:700}
+  .msg.ok{color:var(--ok)} .msg.err{color:var(--warn)}
+  .note{font-size:.85rem;color:#666;margin-top:10px}
+
+  footer{text-align:center;padding:26px 16px 36px;color:#41564a;font-size:.92rem}
+  footer b{color:var(--green)}
+  #confetti{position:fixed;inset:0;pointer-events:none;z-index:50}
+
+  @media (max-width:560px){
+    .cover{height:190px}
+    .avatar{width:92px;height:92px}
+    .head{margin-top:-46px;padding:0 14px}
+    .head h1{font-size:1.2rem}
+    .welcome,section.block,nav{padding-left:14px;padding-right:14px}
+    .welcome h2{font-size:1.6rem}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  }
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+
+<div class="wrap">
+  <div class="page">
+    <!-- Banner = school gate, Profile = school logo -->
+    <div class="cover"><img src="gate.jpg" alt="Main gate of Tuburan Elementary School"></div>
+    <div class="head">
+      <img class="avatar" src="logo.jpg" alt="Tuburan Elementary School logo">
+      <div>
+        <h1>TUBURAN ELEMENTARY SCHOOL</h1>
+        <p>Odiongan, Romblon | Est. 1968 | School ID 111344</p>
+      </div>
+    </div>
+    <nav aria-label="Page sections">
+      <a href="#welcome">Welcome</a>
+      <a href="#submit">Submit Documents</a>
+    </nav>
+
+    <!-- Interactive Welcome -->
+    <div class="welcome" id="welcome">
+      <p class="greet" id="greet">&nbsp;</p>
+      <h2>Welcome to Our School!</h2>
+      <p class="typed" id="typed" aria-live="polite"></p>
+      <div class="chips" role="group" aria-label="School values">
+        <button class="chip" data-k="Learning" aria-pressed="false">Learning</button>
+        <button class="chip" data-k="Excellence" aria-pressed="false">Excellence</button>
+        <button class="chip" data-k="Service" aria-pressed="false">Service</button>
+      </div>
+      <div class="meaning" id="meaning">Tap a value to see what it means to us.</div>
+      <div class="actions">
+        <button class="btn" id="hello">Say hello 🎉</button>
+        <a class="btn alt" href="#submit">Submit a document</a>
+        <span class="stamp" id="clock"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Teacher folders + upload -->
+  <section class="block" id="submit">
+    <h2>Submit Documents</h2>
+    <p class="sub">Choose your name to open your folder, then upload your PDF, Word, or Excel file.</p>
+    <div class="grid" id="grid"></div>
+
+    <form class="form" id="form" novalidate>
+      <div class="picked none" id="picked">Select your name above to choose your folder.</div>
+
+      <label for="title">Document title</label>
+      <input type="text" id="title" maxlength="120" placeholder="e.g., Weekly Lesson Plan – Week 3" required>
+
+      <label for="remarks">Remarks (optional)</label>
+      <textarea id="remarks" rows="2" maxlength="300" placeholder="Anything the Principal should know"></textarea>
+
+      <label>Files</label>
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose files to upload">
+        <strong>Click to choose files</strong> or drag them here
+        <small>PDF, Word (.doc, .docx), Excel (.xls, .xlsx) · up to 10 MB each</small>
+        <input type="file" id="file" multiple hidden accept=".pdf,.doc,.docx,.xls,.xlsx">
+      </div>
+      <ul class="files" id="files"></ul>
+
+      <div class="actions">
+        <button class="btn" type="submit" id="send">Upload to my folder</button>
+      </div>
+      <div class="msg" id="msg" role="status"></div>
+      <p class="note">Uploaded files are saved to your own folder and can be viewed by the School Principal only.</p>
+    </form>
+  </section>
+
+  <footer>
+    <div>Tuburan Elementary School · Odiongan, Romblon · School ID 111344</div>
+    <div>Web developed by <b>Sir Lawrence F. Fajilan</b></div>
+  </footer>
+</div>
+
+<canvas id="confetti"></canvas>
+
+<script>
+/* ===================== CONFIG ===================== */
+// Paste your Google Apps Script Web App URL here (see SETUP-GUIDE.md, Step 4)
+const SCRIPT_URL = "PASTE_YOUR_WEB_APP_URL_HERE";
+const MAX_MB = 10;
+
+// IDs must match the IDs in Code.gs
+const TEACHERS = [
+  {id:"kinder",   role:"Kindergarten",        name:"Annabel F. Fetalco"},
+  {id:"g1-apple", role:"Grade 1 – Apple",     name:"Marife Famero"},
+  {id:"g1-banana",role:"Grade 1 – Banana",    name:"Junlymay M. Fabello"},
+  {id:"g2-chico", role:"Grade 2 – Chico",     name:"Analy F. Pagsinohin"},
+  {id:"g3-cherry",role:"Grade 3 – Cherry",    name:"Mabini G. Taborete"},
+  {id:"g3-durian",role:"Grade 3 – Durian",    name:"Analy F. Bete"},
+  {id:"g4-santol",role:"Grade 4 – Santol",    name:"Raquel F. Payaga"},
+  {id:"g5-datiles",role:"Grade 5 – Datiles",  name:"Maribel M. Fabellar"},
+  {id:"g5-grapes",role:"Grade 5 – Grapes",    name:"Mabel M. Famini"},
+  {id:"g6-oranges",role:"Grade 6 – Oranges",  name:"Ernie T. Cortez"},
+  {id:"g6-blackberry",role:"Grade 6 – Blackberry", name:"Erneluz F. Fiedacan"},
+  {id:"ao",       role:"Administrative Officer", name:"Krezelle G. Fababeir"}
+];
+
+/* ===================== WELCOME (interactive) ===================== */
+const $ = s => document.querySelector(s);
+
+function greeting(){
+  const h = new Date().toLocaleString("en-US",{hour:"numeric",hour12:false,timeZone:"Asia/Manila"})*1;
+  return h<12 ? "Good morning!" : h<18 ? "Good afternoon!" : "Good evening!";
+}
+function tick(){
+  const d = new Date();
+  $("#greet").textContent = greeting();
+  $("#clock").textContent = d.toLocaleString("en-PH",{weekday:"long",month:"long",day:"numeric",year:"numeric",hour:"numeric",minute:"2-digit",timeZone:"Asia/Manila"});
+}
+tick(); setInterval(tick,30000);
+
+const lines = [
+  "Building brighter futures through quality education, excellence, and values.",
+  "Proudly serving the children of Odiongan, Romblon since 1968.",
+  "Welcome, parents, pupils, and teachers. We are glad you are here!"
+];
+(function typer(){
+  const el = $("#typed");
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches){ el.textContent = lines[0]; return; }
+  let li=0, ci=0, del=false;
+  (function step(){
+    const t = lines[li];
+    el.textContent = t.slice(0,ci);
+    if(!del && ci<t.length){ ci++; setTimeout(step,38); }
+    else if(!del){ del=true; setTimeout(step,2200); }
+    else if(ci>0){ ci-=2; if(ci<0)ci=0; setTimeout(step,16); }
+    else { del=false; li=(li+1)%lines.length; setTimeout(step,350); }
+  })();
+})();
+
+const meanings = {
+  Learning:"We nurture curious minds and a lifelong love of learning in every child.",
+  Excellence:"We aim for our best in teaching, in studying, and in everything we do.",
+  Service:"We serve our pupils, families, and community with care and dedication."
+};
+document.querySelectorAll(".chip").forEach(c=>c.addEventListener("click",()=>{
+  document.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",x===c));
+  $("#meaning").textContent = c.dataset.k + ": " + meanings[c.dataset.k];
+}));
+
+/* confetti */
+const cv = $("#confetti"), cx = cv.getContext("2d");
+let parts=[], raf=0;
+function fit(){ cv.width=innerWidth; cv.height=innerHeight; } fit(); addEventListener("resize",fit);
+function burst(){
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const cols=["#0b6b4f","#f2b705","#d62828","#1b9e3f","#ffffff","#ff9f1c"];
+  for(let i=0;i<140;i++) parts.push({x:innerWidth/2,y:innerHeight*0.35,vx:(Math.random()-.5)*16,vy:Math.random()*-14-4,s:Math.random()*7+4,c:cols[i%cols.length],r:Math.random()*6,vr:(Math.random()-.5)*.4,life:0});
+  cancelAnimationFrame(raf); (function loop(){
+    cx.clearRect(0,0,cv.width,cv.height);
+    parts.forEach(p=>{p.vy+=.35;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;p.life++;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.s/2,-p.s/3,p.s,p.s*.6);cx.restore();});
+    parts=parts.filter(p=>p.y<cv.height+20&&p.life<200);
+    if(parts.length) raf=requestAnimationFrame(loop); else cx.clearRect(0,0,cv.width,cv.height);
+  })();
+}
+$("#hello").addEventListener("click",()=>{
+  burst();
+  $("#meaning").textContent = greeting().replace("!","") + "! Welcome to Tuburan Elementary School, where every child can learn and shine.";
+  document.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed","false"));
+});
+
+/* ===================== TEACHER FOLDERS ===================== */
+const folderSVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#f2b705" d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path fill="#ffd54a" d="M3 9h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>';
+let picked = null;
+const grid = $("#grid");
+TEACHERS.forEach(t=>{
+  const b = document.createElement("button");
+  b.type="button"; b.className="card"; b.setAttribute("aria-pressed","false"); b.dataset.id=t.id;
+  b.innerHTML = folderSVG + '<span><b></b><small></small></span>';
+  b.querySelector("b").textContent = t.name;
+  b.querySelector("small").textContent = t.role;
+  b.addEventListener("click",()=>pick(t.id));
+  grid.appendChild(b);
+});
+function pick(id){
+  picked = TEACHERS.find(t=>t.id===id);
+  document.querySelectorAll(".card").forEach(c=>c.setAttribute("aria-pressed",c.dataset.id===id));
+  const p=$("#picked"); p.classList.remove("none");
+  p.textContent = "📁 Folder: " + picked.name + " (" + picked.role + ")";
+  $("#msg").textContent="";
+}
+
+/* ===================== FILE PICKING ===================== */
+let queue = [];
+const OK_EXT = ["pdf","doc","docx","xls","xlsx"];
+const drop=$("#drop"), input=$("#file");
+drop.addEventListener("click",()=>input.click());
+drop.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();input.click();} });
+["dragover","dragenter"].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add("over");}));
+["dragleave","drop"].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove("over");}));
+drop.addEventListener("drop",e=>addFiles(e.dataTransfer.files));
+input.addEventListener("change",()=>{addFiles(input.files);input.value="";});
+
+function addFiles(list){
+  const bad=[];
+  [...list].forEach(f=>{
+    const ext=f.name.split(".").pop().toLowerCase();
+    if(!OK_EXT.includes(ext)) bad.push(f.name+" (type not allowed)");
+    else if(f.size>MAX_MB*1024*1024) bad.push(f.name+" (over "+MAX_MB+" MB)");
+    else queue.push({file:f,state:"ready"});
+  });
+  if(bad.length) setMsg("Skipped: "+bad.join(", "),"err"); else setMsg("","");
+  render();
+}
+function render(){
+  const ul=$("#files"); ul.innerHTML="";
+  queue.forEach((q,i)=>{
+    const li=document.createElement("li");
+    const nm=document.createElement("span"); nm.className="nm"; nm.textContent=q.file.name+" · "+(q.file.size/1048576).toFixed(2)+" MB";
+    const right=document.createElement("span");
+    if(q.state==="ready"){ const x=document.createElement("button"); x.type="button"; x.textContent="Remove"; x.onclick=()=>{queue.splice(i,1);render();}; right.appendChild(x); }
+    else { right.className="st "+(q.state==="done"?"ok":q.state==="error"?"err":"wait"); right.textContent = q.state==="done"?"Uploaded ✓":q.state==="error"?(q.err||"Failed"):"Uploading…"; }
+    li.append(nm,right); ul.appendChild(li);
+  });
+}
+function setMsg(t,c){ const m=$("#msg"); m.textContent=t; m.className="msg "+(c||""); }
+
+/* ===================== UPLOAD TO GOOGLE APPS SCRIPT ===================== */
+const toB64 = f => new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(String(r.result).split(",")[1]); r.onerror=()=>rej(new Error("Could not read file")); r.readAsDataURL(f); });
+
+$("#form").addEventListener("submit", async e=>{
+  e.preventDefault();
+  if(!picked) return setMsg("Select your name first to choose your folder.","err");
+  const title=$("#title").value.trim();
+  if(!title) return setMsg("Enter a document title.","err");
+  const todo=queue.filter(q=>q.state==="ready"||q.state==="error");
+  if(!todo.length) return setMsg("Choose at least one file to upload.","err");
+  if(SCRIPT_URL.startsWith("PASTE_")) return setMsg("The upload service is not connected yet. Add the Web App URL in index.html.","err");
+
+  $("#send").disabled=true; setMsg("Uploading… please keep this page open.","");
+  let okCount=0;
+  for(const q of todo){
+    q.state="busy"; render();
+    try{
+      const data = await toB64(q.file);
+      const res = await fetch(SCRIPT_URL,{
+        method:"POST",
+        headers:{"Content-Type":"text/plain;charset=utf-8"},   // avoids CORS preflight
+        body:JSON.stringify({teacherId:picked.id,title,remarks:$("#remarks").value.trim(),fileName:q.file.name,mimeType:q.file.type||"application/octet-stream",data})
+      });
+      const out = await res.json();
+      if(out.ok){ q.state="done"; okCount++; } else { q.state="error"; q.err=out.error||"Failed"; }
+    }catch(err){ q.state="error"; q.err="Network error"; }
+    render();
+  }
+  $("#send").disabled=false;
+  if(okCount===todo.length){ setMsg("Done! "+okCount+" file(s) saved to "+picked.name+"'s folder.","ok"); burst(); $("#title").value=""; $("#remarks").value=""; queue=queue.filter(q=>q.state!=="done"); setTimeout(render,2500); }
+  else setMsg(okCount+" of "+todo.length+" uploaded. Fix the errors above and press Upload again.","err");
+});
+</script>
+</body>
+</html>
